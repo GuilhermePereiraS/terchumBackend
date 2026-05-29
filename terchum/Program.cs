@@ -1,5 +1,6 @@
 using terchum;
 using Microsoft.EntityFrameworkCore;
+using terchum.ws;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddWebSocketInitializer();
+builder.Services.AddSingleton<RoomManager>();
 
 var app = builder.Build();
 app.UseWebSockets();

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("terchum")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f00a0da38cbb4df83dcb436b4803ea39b6c45d5d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+53cb4f10ee9abae17082e17f75b3f131842b6e57")]
 [assembly: System.Reflection.AssemblyProductAttribute("terchum")]
 [assembly: System.Reflection.AssemblyTitleAttribute("terchum")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
