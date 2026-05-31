@@ -1187,25 +1187,24 @@
     ]
   },
   "packageFolders": {
-    "/home/guilherme/.nuget/packages/": {}
+    "/home/guizin/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/guilherme/RiderProjects/terchumBackend/terchum/terchum.csproj",
+      "projectUniqueName": "/home/guizin/RiderProjects/terchumBackend/terchum/terchum.csproj",
       "projectName": "terchum",
-      "projectPath": "/home/guilherme/RiderProjects/terchumBackend/terchum/terchum.csproj",
-      "packagesPath": "/home/guilherme/.nuget/packages/",
-      "outputPath": "/home/guilherme/RiderProjects/terchumBackend/terchum/obj/",
+      "projectPath": "/home/guizin/RiderProjects/terchumBackend/terchum/terchum.csproj",
+      "packagesPath": "/home/guizin/.nuget/packages/",
+      "outputPath": "/home/guizin/RiderProjects/terchumBackend/terchum/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/guilherme/.nuget/NuGet/NuGet.Config"
+        "/home/guizin/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "/usr/lib/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1252,6 +1251,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.27, 8.0.27]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -1260,7 +1265,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.127/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.127/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
