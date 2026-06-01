@@ -1,5 +1,6 @@
 using terchum;
 using Microsoft.EntityFrameworkCore;
+using terchum.service;
 using terchum.ws;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,9 +15,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddWebSocketInitializer();
 builder.Services.AddSingleton<RoomManager>();
+builder.Services.AddScoped<MessageBoardService>();
 
 var app = builder.Build();
 app.UseWebSockets();
+WebSocketController.Configure(app);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

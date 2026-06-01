@@ -10,5 +10,7 @@ public class AppDbContext : DbContext
     }
     
     public DbSet<User> Usuarios { get; set; }
+    public DbSet<Message> Messages { get; set; }  
+    public DbSet<MessageBoard> MessageBoard { get; set; }
     
 }

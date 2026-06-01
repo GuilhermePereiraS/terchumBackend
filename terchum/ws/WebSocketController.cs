@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using System.Net.WebSockets;
 using System.Text;
+using terchum.service;
 
 namespace terchum.ws;
 
@@ -8,7 +9,7 @@ public static class WebSocketController
 {
     public static void Configure(WebApplication app)
     {
-        app.Map("/ws/{room}", async (HttpContext context, RoomManager roomManager, string room) =>
+        app.Map("/ws/{room}", async (HttpContext context, RoomManager roomManager, MessageBoardService messageBoardService, string room) =>
         {
             if (!context.WebSockets.IsWebSocketRequest)
             {
@@ -20,14 +21,15 @@ public static class WebSocketController
 
             roomManager.AddConnection(room, webSocket);
 
-            await HandleConnection(webSocket, roomManager, room);
+            await HandleConnection(webSocket, roomManager, messageBoardService, room);
         });
     }
-
-
-private static async Task HandleConnection(WebSocket webSocket, RoomManager roomManager, string room)
+    
+private static async Task HandleConnection(WebSocket webSocket, RoomManager roomManager, MessageBoardService messageBoardService, string room)
     {
         var buffer = new byte[1024];
+
+        await messageBoardService.SaveRoomInDbIfNotExists(room);
 
         while (webSocket.State == WebSocketState.Open)
         {
@@ -47,6 +49,11 @@ private static async Task HandleConnection(WebSocket webSocket, RoomManager room
             
             await Broadcast(roomManager, room, message);
         }
+    }
+
+    private static void saveRoomInDbIfNotExists(string room)
+    {
+        throw new NotImplementedException();
     }
 
     private static async Task Broadcast(RoomManager roomManager, string roomName, string message)
@@ -69,5 +76,6 @@ private static async Task HandleConnection(WebSocket webSocket, RoomManager room
 
 /* TODO*
     1. Salvamento e criação dinamica de salas
+    2. Salvar mensagens do usuario especifico
     2. Carregar mensagens do db
 */

@@ -4,4 +4,4 @@ usuario acessa -> verifica no banco se a sala existe
                  Existe                   Não existe
                     |                         |
                     v                         v
-Carrega a sala existente na memória      Carrega a nova sala em memoria e salva no banco
+Carrega a sala existente na memória e conversas      Carrega a nova sala em memoria e salva no banco
