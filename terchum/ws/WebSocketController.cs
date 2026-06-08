@@ -5,8 +5,16 @@ using terchum.service;
 
 namespace terchum.ws;
 
+
 public static class WebSocketController
 {
+
+    private class Connection
+    {
+        public string ConnectionId { get; set; }
+        public WebSocket WebSocket { get; set; }
+    }
+    
     public static void Configure(WebApplication app)
     {
         app.Map("/ws/{room}", async (HttpContext context, RoomManager roomManager, MessageBoardService messageBoardService, string room) =>
@@ -21,15 +29,33 @@ public static class WebSocketController
 
             roomManager.AddConnection(room, webSocket);
 
-            await HandleConnection(webSocket, roomManager, messageBoardService, room);
+            await HandleConnection(webSocket, roomManager, messageBoardService, room, GetClientId(context));
         });
     }
-    
-private static async Task HandleConnection(WebSocket webSocket, RoomManager roomManager, MessageBoardService messageBoardService, string room)
+
+    private static string GetClientId(HttpContext context)
+    {
+        var clientId = context.Request.Cookies["clientId"];
+
+        if (clientId == null)
+        {
+            clientId = Guid.NewGuid().ToString();
+                
+            context.Response.Cookies.Append(
+                "clientId", 
+                clientId, 
+                new CookieOptions{HttpOnly = true, Expires = DateTimeOffset.UtcNow.AddYears(1)}
+            );
+        } return clientId;
+    }
+
+    private static async Task HandleConnection(WebSocket webSocket, RoomManager roomManager, MessageBoardService messageBoardService, string room, string clientId)
     {
         var buffer = new byte[1024];
 
         await messageBoardService.SaveRoomInDbIfNotExists(room);
+        
+        loadMessages(webSocket); 
 
         while (webSocket.State == WebSocketState.Open)
         {
@@ -46,9 +72,21 @@ private static async Task HandleConnection(WebSocket webSocket, RoomManager room
             }
             
             var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+
+            saveMessage(message, clientId);
             
             await Broadcast(roomManager, room, message);
         }
+    }
+
+    private static void saveMessage(string message, string clientId)
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void loadMessages(WebSocket webSocket)
+    {
+      
     }
 
     private static void saveRoomInDbIfNotExists(string room)
